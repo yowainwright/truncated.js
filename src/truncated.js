@@ -1,21 +1,27 @@
-export default function truncated(target, maxHeight, symbol, cName) {
+export default function truncated(target, maxheight, opts) {
   let els = typeof target === 'string' ? document.querySelectorAll(target) : target;
   if (!('length' in els)) {
     els = [els];
   }
-  const hellip = symbol || '&hellip;';
-  const classname = cName || 'js-truncated';
-  const hellipWrap = `<span class="js-hellip">${hellip}</span>`;
+  if (!maxheight) {
+    throw Error('maxheight is required');
+  }
+  const hasOpts = typeof opts !== 'undefined';
+  const defaults = {
+    character: hasOpts ? opts.character : '&hellip;',
+    classname: hasOpts ? opts.classname : 'js-truncated',
+  };
+  const charWrap = `<span class="js-truncated-char">${defaults.character}</span>`;
   for (let i = 0; i < els.length; i++) {
     const el = els[i];
-    const span = el.querySelector(classname);
-    if (el.offsetHeight < maxHeight && span) {
-      el.removeChild(el.querySelector('.js-hellip'));
+    const span = el.querySelector(defaults.classname);
+    if (el.offsetHeight < maxheight && span) {
+      el.removeChild(el.querySelector('.js-truncated-char'));
       const text = el.textContent;
       el.removeChild(span);
       el.textContent = text;
       return;
-    } else if (el.offsetHeight < maxHeight) return;
+    } else if (el.offsetHeight < maxheight) return;
     const text = el.textContent;
     let trimmedText = text;
     do {
@@ -23,7 +29,7 @@ export default function truncated(target, maxHeight, symbol, cName) {
       if (lastSpace < 0) break;
       trimmedText = trimmedText.substr(0, lastSpace);
       el.textContent = trimmedText;
-    } while (el.offsetHeight > maxHeight);
+    } while (el.offsetHeight > maxheight);
     let k = 0;
     let diff = '';
     for (let j = 0; j < text.length; j++) {
@@ -35,7 +41,7 @@ export default function truncated(target, maxHeight, symbol, cName) {
     }
     el.insertAdjacentHTML(
       'beforeend',
-      `${hellipWrap}<span class="${classname}" style="display:none;">${diff}</span>`
+      `${charWrap}<span class="${defaults.classname}" style="display:none;">${diff}</span>`
     );
     return;
   }
@@ -43,8 +49,8 @@ export default function truncated(target, maxHeight, symbol, cName) {
 const plugin = window.$ || window.jQuery || window.Zepto;
 if (plugin) {
   plugin.fn.extend({
-    truncated: function truncatedFunc(maxHeight, symbol, cName) {
-      return truncated(this, maxHeight, symbol, cName);
+    truncated: function truncatedFunc(maxheight, opts) {
+      return truncated(this, maxheight, opts);
     },
   });
 }

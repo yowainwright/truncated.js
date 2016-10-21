@@ -1,6 +1,6 @@
 {
   "name": "truncated.js",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A plugin for effeciently & semantically truncating text",
   "main": "dist/truncated.js",
 	"files": [
