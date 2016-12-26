@@ -5,7 +5,7 @@
 
 > A plugin for effeciently and semantically truncating text.
 
-This project will is now called [**shave**](https://github.com/dollarshaveclub/shave) and will better be supported [here](https://github.com/dollarshaveclub/shave). ~Thanks
+This project is now called [**shave**](https://github.com/dollarshaveclub/shave) and is supported [here](https://github.com/dollarshaveclub/shave). ~Thanks
 
 
 ## Setup
