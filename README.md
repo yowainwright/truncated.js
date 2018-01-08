@@ -3,6 +3,8 @@
 
 # Truncated.js
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/yowainwright/truncated.js.svg)](https://greenkeeper.io/)
+
 > A plugin for effeciently and semantically truncating text.
 
 This project is now called [**shave**](https://github.com/dollarshaveclub/shave) and is supported [here](https://github.com/dollarshaveclub/shave). ~Thanks
